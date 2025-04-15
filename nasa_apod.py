@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from urllib.parse import urlparse
 import os 
+import argparse
 import requests
 from download_image import download_image
 
@@ -13,11 +14,16 @@ def receive_expansion(link):
 
 def main(): 
     load_dotenv()
-    api_key = os.getenv("API_KEY")
+    parser = argparse.ArgumentParser(
+        description='загрузка nasa_apod изображений'
+    )
+    parser.add_argument('--count', help='количество загружаемых изображений',  default = 30, type=int) 
+    args = parser.parse_args()
+    api_key = os.getenv("NASA_API_KEY")
     url = "https://api.nasa.gov/planetary/apod"
     params = { 
         "api_key": api_key, 
-        "count": 30 
+        "count": args.count
     }
     response = requests.get(url, params=params) 
     response.raise_for_status()
