@@ -10,7 +10,7 @@ def main():
     parser = argparse.ArgumentParser(
         description='загрузка EPIC изображений'
     )
-    parser.add_argument('--count', help='количество изображений которое будет загружено на пк',  default = '5') 
+    parser.add_argument('--count', help='количество изображений которое будет загружено на пк',  default = 5, type=int) 
     args = parser.parse_args()
     api_key = os.environ['']
     url = "https://api.nasa.gov/EPIC/api/natural/images" 
