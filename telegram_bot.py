@@ -6,7 +6,7 @@ import time
 
 
 load_dotenv()
-telegram_api_token = os.getenv("")
+telegram_api_token = os.environ['']
 bot = telegram.Bot(token=telegram_api_token)
 while True: 
     for dirpath, dirs, filenames in os.walk('images'):

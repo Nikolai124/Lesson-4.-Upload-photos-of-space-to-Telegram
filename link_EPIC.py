@@ -6,7 +6,7 @@ from download_image import download_image
 
 def main(): 
     load_dotenv()
-    api_key = os.getenv("")
+    api_key = os.environ['']
     url = "https://api.nasa.gov/EPIC/api/natural/images" 
     params = { 
         "api_key": api_key,
