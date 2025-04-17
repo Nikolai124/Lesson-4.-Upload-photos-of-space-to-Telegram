@@ -1,16 +1,22 @@
 from dotenv import load_dotenv
 import os 
 import requests
+import argparse
 from download_image import download_image
 
 
 def main(): 
     load_dotenv()
+    parser = argparse.ArgumentParser(
+        description='загрузка EPIC изображений'
+    )
+    parser.add_argument('--count', help='количество изображений которое будет загружено на пк',  default = '5') 
+    args = parser.parse_args()
     api_key = os.environ['']
     url = "https://api.nasa.gov/EPIC/api/natural/images" 
     params = { 
         "api_key": api_key,
-        "count": 5 
+        "count": args.count
     }
     response = requests.get(url, params=params) 
     response.raise_for_status()
