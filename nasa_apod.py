@@ -19,7 +19,7 @@ def main():
     )
     parser.add_argument('--count', help='количество загружаемых изображений',  default = 30, type=int) 
     args = parser.parse_args()
-    api_key = os.environ['']
+    api_key = os.environ['NASA_API_KEY']
     url = "https://api.nasa.gov/planetary/apod"
     params = { 
         "api_key": api_key, 
