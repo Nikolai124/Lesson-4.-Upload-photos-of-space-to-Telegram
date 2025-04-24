@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 import os 
 import argparse
 import requests
+from pathlib import Path
 from download_image import download_image
 
 
@@ -18,7 +19,9 @@ def main():
         description='загрузка nasa_apod изображений'
     )
     parser.add_argument('--count', help='количество загружаемых изображений',  default = 30, type=int) 
+    parser.add_argument('--path', help='путь к файлу', default="images") 
     args = parser.parse_args()
+    Path(args.path).mkdir(parents=True, exist_ok=True) 
     api_key = os.environ['NASA_API_KEY']
     url = "https://api.nasa.gov/planetary/apod"
     params = { 
@@ -30,7 +33,7 @@ def main():
     for image_number, nasa_image in enumerate(response.json()):
         link = nasa_image['url'] 
         link_expansion = receive_expansion(link) 
-        filename = f"images/nasa_apod_{image_number}{link_expansion}"
+        filename = f"{args.path}/nasa_apod_{image_number}{link_expansion}"
         download_image(link, filename) 
 
 
