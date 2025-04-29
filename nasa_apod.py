@@ -33,10 +33,9 @@ def main():
     for image_number, nasa_image in enumerate(response.json()):
         link = nasa_image['url'] 
         link_expansion = receive_expansion(link) 
-        filename = f"{args.path}/nasa_apod_{image_number}{link_expansion}"
-        download_image(link, filename) 
-
-
+        filename = f"nasa_apod_{image_number}{link_expansion}"
+        file_path = os.path.join(args.path, filename)
+        download_image(link, file_path) 
 
 
 if __name__ == "__main__":
