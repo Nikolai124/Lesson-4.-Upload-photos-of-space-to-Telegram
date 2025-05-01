@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+from datetime import datetime 
 import os 
 import requests
 from pathlib import Path
@@ -26,9 +27,9 @@ def main():
     for image_number, epic_image in enumerate(response.json()): 
         date = epic_image['date']
         name = epic_image['image'] 
-        a = date.split(' ')[0] 
-        b = a.split('-') 
-        download_link_epic = f"https://api.nasa.gov/EPIC/archive/natural/{b[0]}/{b[1]}/{b[2]}/png/{name}.png" 
+        date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+        formatted_date = date.strftime("%Y/%m/%d")
+        download_link_epic = f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{name}.png" 
         filename = f"EPIC_{image_number}.png"
         file_path = os.path.join(args.path, filename)
         download_image(download_link_epic, file_path, params) 
