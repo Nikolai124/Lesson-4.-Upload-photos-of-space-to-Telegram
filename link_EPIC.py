@@ -1,11 +1,17 @@
 from dotenv import load_dotenv
 from datetime import datetime 
+from pathlib import Path
+from download_image import download_image
 import os 
 import requests
-from pathlib import Path
 import argparse
-from download_image import download_image
 
+
+def get_link_EPIC(params):
+    url = "https://api.nasa.gov/EPIC/api/natural/images" 
+    response = requests.get(url, params=params) 
+    response.raise_for_status()
+    return response.json()
 
 def main(): 
     load_dotenv()
@@ -17,14 +23,12 @@ def main():
     args = parser.parse_args()
     Path(args.path).mkdir(parents=True, exist_ok=True) 
     api_key = os.environ['NASA_API_KEY']
-    url = "https://api.nasa.gov/EPIC/api/natural/images" 
     params = { 
         "api_key": api_key,
         "count": args.count
     }
-    response = requests.get(url, params=params) 
-    response.raise_for_status()
-    for image_number, epic_image in enumerate(response.json()): 
+    link_EPIC_images = get_link_EPIC(params=params)
+    for image_number, epic_image in enumerate(link_EPIC_images): 
         date = epic_image['date']
         name = epic_image['image'] 
         date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
