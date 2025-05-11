@@ -14,7 +14,7 @@
 ```
 NASA_API_KEY="апи ключ наса"
 TELEGRAM_API_TOKEN="телеграм токен" 
-CHAT_ID="чат айди"
+TG_CHAT_ID="чат айди"
 ```
 
 Python3 должен быть уже установлен. 
