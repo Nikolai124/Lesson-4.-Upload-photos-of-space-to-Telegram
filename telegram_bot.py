@@ -25,8 +25,13 @@ def main():
     telegram_api_token = os.environ['TELEGRAM_API_TOKEN']
     chat_id = os.environ['TG_CHAT_ID']
     bot = telegram.Bot(token=telegram_api_token)
-    while True: 
-        send_images(bot, chat_id, args.path, args.delay)
+    try:
+        while True: 
+            send_images(bot, chat_id, args.path, args.delay)
+    except telegram.error.NetworkError:
+        print("Следующая отправка будет через минуту.")
+        time.sleep(60)
+
 
 if __name__ == "__main__":
     main()
