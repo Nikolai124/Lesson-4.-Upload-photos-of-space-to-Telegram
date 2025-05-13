@@ -12,8 +12,7 @@ def receive_expansion(link):
     expansion = os.path.splitext(link_path)[1] 
     return expansion 
 
-def get_nasa_apod(count):
-    api_key = os.environ['NASA_API_KEY']
+def get_nasa_apod(count, api_key):
     url = "https://api.nasa.gov/planetary/apod"
     params = { 
         "api_key": api_key, 
@@ -25,6 +24,7 @@ def get_nasa_apod(count):
 
 def main(): 
     load_dotenv()
+    api_key = os.environ['NASA_API_KEY']
     parser = argparse.ArgumentParser(
         description='загрузка nasa_apod изображений'
     )
@@ -32,7 +32,7 @@ def main():
     parser.add_argument('--path', help='путь к файлу', default="images") 
     args = parser.parse_args()
     Path(args.path).mkdir(parents=True, exist_ok=True) 
-    nasa_apod_images = get_nasa_apod(args.count)
+    nasa_apod_images = get_nasa_apod(args.count, api_key)
     for image_number, nasa_image in enumerate(nasa_apod_images):
         link = nasa_image['url'] 
         link_expansion = receive_expansion(link) 
