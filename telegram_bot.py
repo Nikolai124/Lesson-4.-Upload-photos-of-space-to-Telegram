@@ -6,6 +6,14 @@ import random
 import time
 
 
+def send_images(bot, chat_id, path, delay):
+    for dirpath, dirs, filenames in os.walk(path):
+        random.shuffle(filenames)
+        for filename in filenames:
+            with open(os.path.join('images', filename), 'rb') as file:
+                bot.send_document(chat_id=chat_id, document=file)
+    time.sleep(delay)
+
 def main(): 
     load_dotenv()
     parser = argparse.ArgumentParser(
@@ -18,12 +26,14 @@ def main():
     chat_id = os.environ['TG_CHAT_ID']
     bot = telegram.Bot(token=telegram_api_token)
     while True: 
-        for dirpath, dirs, filenames in os.walk(args.path):
-            random.shuffle(filenames)
-            for filename in filenames:
-                with open(os.path.join('images', filename), 'rb') as file:
-                    bot.send_document(chat_id=chat_id, document=file)
-        time.sleep(args.delay)
+        send_images(bot, chat_id, args.path, args.delay)
+    # while True: 
+    #     for dirpath, dirs, filenames in os.walk(args.path):
+    #         random.shuffle(filenames)
+    #         for filename in filenames:
+    #             with open(os.path.join('images', filename), 'rb') as file:
+    #                 bot.send_document(chat_id=chat_id, document=file)
+    #     time.sleep(args.delay)
 
 
 if __name__ == "__main__":
