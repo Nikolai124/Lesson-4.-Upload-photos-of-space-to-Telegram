@@ -10,7 +10,7 @@ def send_images(bot, chat_id, path, delay):
     for dirpath, dirs, filenames in os.walk(path):
         random.shuffle(filenames)
         for filename in filenames:
-            with open(os.path.join('images', filename), 'rb') as file:
+            with open(os.path.join(path, filename), 'rb') as file:
                 bot.send_document(chat_id=chat_id, document=file)
     time.sleep(delay)
 
