@@ -27,14 +27,6 @@ def main():
     bot = telegram.Bot(token=telegram_api_token)
     while True: 
         send_images(bot, chat_id, args.path, args.delay)
-    # while True: 
-    #     for dirpath, dirs, filenames in os.walk(args.path):
-    #         random.shuffle(filenames)
-    #         for filename in filenames:
-    #             with open(os.path.join('images', filename), 'rb') as file:
-    #                 bot.send_document(chat_id=chat_id, document=file)
-    #     time.sleep(args.delay)
-
 
 if __name__ == "__main__":
     main()
