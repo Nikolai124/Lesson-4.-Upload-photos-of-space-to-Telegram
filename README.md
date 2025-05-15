@@ -25,21 +25,21 @@ pip install -r requirements.txt
 
 ### Как запустить проект
 
-Для загрузки изображения 'nasa_apod' нужно запустить файл "nasa_apod.py". Изображения 'nasa_apod' можно скачать по дефолтному количеству изображений и по своему количеству изображений. Дефолтный вариант запуска:
+Для загрузки изображения 'nasa_apod' нужно запустить файл "receiving_nasa_apod_images.py". Изображения 'nasa_apod' можно скачать по дефолтному количеству изображений и по своему количеству изображений. Дефолтный вариант запуска:
 ```
-python nasa_apod.py
+python receiving_nasa_apod_images.py
 ```
 Вариант запуска по своему количеству изображений:
 ```
-python nasa_apod.py --count своё количество изображений
+python receiving_nasa_apod_images.py --count своё количество изображений
 ```
-Для загрузки изображения 'spacex' нужно запустить файл "fetch_spacex_images.py". Изображения 'spacex' можно скачать по дефолтному id и по своему id. Дефолтный вариант запуска:
+Для загрузки изображения 'spacex' нужно запустить файл "receiving_spacex_images.py". Изображения 'spacex' можно скачать по дефолтному id и по своему id. Дефолтный вариант запуска:
 ```
-python fetch_spacex_images.py
+python receiving_spacex_images.py
 ```
 Вариант запуска по своему id:
 ```
-python fetch_spacex_images.py --id
+python receiving_spacex_images.py --id
 ```
 Для отправки изображений в телеграм канал нужно запустить файл "telegram_bot.py":
 ```
