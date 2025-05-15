@@ -33,10 +33,10 @@ def main():
         name = epic_image['image'] 
         date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
         formatted_date = date.strftime("%Y/%m/%d")
-        bootable_link_epic = f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{name}.png" 
+        link_epic_bootable = f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{name}.png" 
         filename = f"EPIC_{image_number}.png"
         file_path = os.path.join(args.path, filename)
-        download_image(bootable_link_epic, file_path, params) 
+        download_image(link_epic_bootable, file_path, params) 
 
 
 if __name__ == "__main__":

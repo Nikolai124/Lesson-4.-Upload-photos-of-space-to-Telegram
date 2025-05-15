@@ -5,8 +5,8 @@ import os
 from download_image import download_image
 
 
-def get_spacex_images(id_spacex_images):
-    url = f"https://api.spacexdata.com/v5/launches/{id_spacex_images}"
+def get_spacex_images(spacex_images_id):
+    url = f"https://api.spacexdata.com/v5/launches/{spacex_images_id}"
     response = requests.get(url) 
     response.raise_for_status() 
     return response.json()["links"]["flickr"]["original"]
