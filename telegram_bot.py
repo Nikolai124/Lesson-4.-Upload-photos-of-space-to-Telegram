@@ -34,7 +34,7 @@ def main():
             send_images( filenames, bot, chat_id, args.path, args.delay)
     except telegram.error.NetworkError:
         print("Потеряно соединение c интернетом! Следующая отправка будет через минуту.")
-        time.sleep(60)
+        time.sleep(5)
 
 
 if __name__ == "__main__":
