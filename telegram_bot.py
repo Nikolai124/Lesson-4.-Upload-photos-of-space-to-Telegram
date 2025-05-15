@@ -6,12 +6,15 @@ import random
 import time
 
 
-def send_images(bot, chat_id, path, delay):
+def collect_files(path):
     for dirpath, dirs, filenames in os.walk(path):
         random.shuffle(filenames)
-        for filename in filenames:
-            with open(os.path.join(path, filename), 'rb') as file:
-                bot.send_document(chat_id=chat_id, document=file)
+    return filenames
+
+def send_images(filenames, bot, chat_id, path, delay):
+    for filename in filenames:
+        with open(os.path.join(path, filename), 'rb') as file:
+            bot.send_document(chat_id=chat_id, document=file)
     time.sleep(delay)
 
 def main(): 
@@ -27,7 +30,8 @@ def main():
     bot = telegram.Bot(token=telegram_api_token)
     try:
         while True: 
-            send_images(bot, chat_id, args.path, args.delay)
+            filenames = collect_files(args.path)
+            send_images( filenames, bot, chat_id, args.path, args.delay)
     except telegram.error.NetworkError:
         print("Потеряно соединение c интернетом! Следующая отправка будет через минуту.")
         time.sleep(60)
