@@ -29,7 +29,7 @@ def main():
         while True: 
             send_images(bot, chat_id, args.path, args.delay)
     except telegram.error.NetworkError:
-        print("Потеряно соеденение c интернетом! Следующая отправка будет через минуту.")
+        print("Потеряно соединение c интернетом! Следующая отправка будет через минуту.")
         time.sleep(60)
 
 
