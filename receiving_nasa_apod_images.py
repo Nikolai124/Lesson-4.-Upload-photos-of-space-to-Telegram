@@ -34,12 +34,13 @@ def main():
     Path(args.path).mkdir(parents=True, exist_ok=True) 
     nasa_apod_images = get_nasa_apod(args.count, api_key)
     for image_number, nasa_image in enumerate(nasa_apod_images):
-        link = nasa_image['url'] 
-        link_expansion = receive_expansion(link) 
-        filename = f"nasa_apod_{image_number}{link_expansion}"
-        file_path = os.path.join(args.path, filename)
-        download_image(link, file_path) 
-
+        if nasa_image['media_type'] == 'image':
+            link = nasa_image['url'] 
+            link_expansion = receive_expansion(link) 
+            filename = f"nasa_apod_{image_number}{link_expansion}"
+            file_path = os.path.join(args.path, filename)
+            download_image(link, file_path) 
+    print(nasa_image)
 
 if __name__ == "__main__":
     main()
