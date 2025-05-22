@@ -7,11 +7,21 @@ import requests
 import argparse
 
 
+def get_download_link(epic_image):
+    date = epic_image['date']
+    name = epic_image['image'] 
+    date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+    formatted_date = date.strftime("%Y/%m/%d")
+    link = f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{name}.png" 
+    return link
+
+
 def get_link_EPIC(params):
     url = "https://api.nasa.gov/EPIC/api/natural/images" 
     response = requests.get(url, params=params) 
     response.raise_for_status()
     return response.json()
+
 
 def main(): 
     load_dotenv()
@@ -29,14 +39,10 @@ def main():
     }
     link_EPIC_images = get_link_EPIC(params=params)
     for image_number, epic_image in enumerate(link_EPIC_images): 
-        date = epic_image['date']
-        name = epic_image['image'] 
-        date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
-        formatted_date = date.strftime("%Y/%m/%d")
-        download_link_EPIC_images = f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{name}.png" 
+        link = get_download_link(epic_image)
         filename = f"EPIC_{image_number}.png"
         file_path = os.path.join(args.path, filename)
-        download_image(download_link_EPIC_images, file_path, params) 
+        download_image(link, file_path, params) 
 
 
 if __name__ == "__main__":
