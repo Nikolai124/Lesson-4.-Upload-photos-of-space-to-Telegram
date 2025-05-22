@@ -11,11 +11,9 @@ def collect_files(path):
         random.shuffle(filenames)
     return filenames
 
-def send_images(filenames, bot, chat_id, path, delay):
-    for filename in filenames:
-        with open(os.path.join(path, filename), 'rb') as file:
-            bot.send_document(chat_id=chat_id, document=file)
-    time.sleep(delay)
+def send_images(filename, bot, chat_id, path):
+    with open(os.path.join(path, filename), 'rb') as file:
+        bot.send_document(chat_id=chat_id, document=file)
 
 def main(): 
     load_dotenv()
@@ -31,7 +29,10 @@ def main():
     try:
         while True: 
             filenames = collect_files(args.path)
-            send_images( filenames, bot, chat_id, args.path, args.delay)
+            for filename in filenames:
+                send_images(filename, bot, chat_id, args.path)
+                time.sleep(5)
+            time.sleep(args.delay)
     except telegram.error.NetworkError:
         print("Потеряно соединение c интернетом! Следующая отправка будет через минуту.")
         time.sleep(5)
