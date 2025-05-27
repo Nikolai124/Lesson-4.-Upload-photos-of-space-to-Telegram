@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import telegram
 import os
+import requests
 import argparse
 import random
 import time
@@ -26,16 +27,16 @@ def main():
     telegram_api_token = os.environ['TELEGRAM_API_TOKEN']
     chat_id = os.environ['TG_CHAT_ID']
     bot = telegram.Bot(token=telegram_api_token)
-    try:
-        while True: 
+    while True: 
+        try:
             filenames = collect_files(args.path)
             for filename in filenames:
                 send_images(filename, bot, chat_id, args.path)
                 time.sleep(5)
             time.sleep(args.delay)
-    except telegram.error.NetworkError:
-        print("Потеряно соединение c интернетом! Следующая отправка будет через минуту.")
-        time.sleep(5)
+        except telegram.error.NetworkError:
+            print("Потеряно соединение c интернетом! Следующая отправка будет через пять секунд.")
+            time.sleep(5)
 
 
 if __name__ == "__main__":
