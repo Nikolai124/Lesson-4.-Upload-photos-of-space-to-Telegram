@@ -15,7 +15,6 @@ def get_nasa_apod_images(nasa_image, image_number, path):
     download_image(link, file_path) 
 
 
-
 def receive_expansion(link): 
     link_path = urlparse(link).path 
     expansion = os.path.splitext(link_path)[1] 
@@ -45,8 +44,9 @@ def main():
     Path(args.path).mkdir(parents=True, exist_ok=True) 
     nasa_apod_images = get_nasa_apod(args.count, api_key)
     for image_number, nasa_image in enumerate(nasa_apod_images):
-        if nasa_image['media_type'] == 'image':
-            get_nasa_apod_images(nasa_image, image_number, args.path)
+        if not nasa_image['media_type'] == 'image':
+            continue
+        get_nasa_apod_images(nasa_image, image_number, args.path)
 
 
 if __name__ == "__main__":
