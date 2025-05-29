@@ -32,8 +32,7 @@ def main():
             filenames = collect_files(args.path)
             for filename in filenames:
                 send_images(filename, bot, chat_id, args.path)
-                time.sleep(5)
-            time.sleep(args.delay)
+                time.sleep(args.delay)
         except telegram.error.NetworkError:
             print("Потеряно соединение c интернетом! Следующая отправка будет через пять секунд.")
             time.sleep(5)
